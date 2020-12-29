@@ -1,2 +1,3 @@
 RewriteEngine On
-RewriteRule (.*) Web/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) /Web/index.php [L]

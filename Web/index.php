@@ -13,8 +13,7 @@ define("MODEL", ROOT.DS."Model".DS);
 
 require CORE.'Includes.php';
 
-new Dispatcher();
-
+$MVC = new Dispatcher();
 
 /**
  * 

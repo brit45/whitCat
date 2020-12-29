@@ -71,8 +71,8 @@ class Dispatcher {
         echo "<title>{$this->title}</title>\n";
 
         foreach($this->script as $k=>$v) {
-            $s = file_get_contents(WEB_ROOT.'Js/'.$v['script']);
-            echo "\n<script src=\"data:text/{$v['type']};base64,".base64_encode($s)."\" {$v['action']}></script>\n";
+            $s = 'Js/'.$v['script'];
+            echo "\n<script type='{$v['type']}' src=\"".$s."\" {$v['action']}></script>\n";
         }
     }
 

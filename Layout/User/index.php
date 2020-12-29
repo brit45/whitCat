@@ -18,14 +18,16 @@
                 </div>
                 <div class="text-primary card-text">
                     Genre : <span class="text-dark"><?= ($k->genre == true)?'Masculin':'Feminin' ?></span>
+                    <img src="" class="bi bi-trash" alt="">
                 </div>
+                
                 
                 
                 <form class="suppr" action="/user/Delect" method="POST">
                     <input type="hidden" name="method" value="delete">
                     <input type="hidden" name="id-content" value="<?= $k->pass ?>">
                     <a href="<?= Router::RPatch('ViewEdit'); ?>/<?= $k->pass ?>" class="btn btn-primary">Voir la fiche</a>
-                    <input type="submit" value="Supprimer" class="btn btn-danger">
+                    <input type="submit" value="Supprimer" class="btn btn-danger  text-white">
                 </form>
             </div>
             
