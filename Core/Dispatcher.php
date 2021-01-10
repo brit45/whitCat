@@ -12,6 +12,7 @@ class Dispatcher {
 
     public function __construct() {
         
+        new Sessions();
         Router::path();
         $route = Router::$Route;
         foreach($route as $k=>$v) {
@@ -71,7 +72,7 @@ class Dispatcher {
         echo "<title>{$this->title}</title>\n";
 
         foreach($this->script as $k=>$v) {
-            $s = 'Js/'.$v['script'];
+            $s = '../Js/'.$v['script'];
             echo "\n<script type='{$v['type']}' src=\"".$s."\" {$v['action']}></script>\n";
         }
     }
