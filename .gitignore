@@ -6,3 +6,5 @@ Config/Configuration.php
 
 /vendor/
 resource/*
+composer.json
+.vscode/settings.json
