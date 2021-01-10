@@ -39,7 +39,6 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="<?= Router::RPatch('home') ?>">Home</a>
-        <a class="navbar text-danger" href="<?= Router::RPatch('add') ?>">Ajouté un utilisateur</a>
     </nav>
     <div class="container-fluid">
         <?= $content_to_htm ?>

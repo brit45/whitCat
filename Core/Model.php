@@ -2,7 +2,8 @@
 
 class Model {
     
-    public $instance;
+    public \PDO $instance;
+    public string $SQL;
     
     public function __construct() {
         
@@ -32,7 +33,7 @@ class Model {
             }
         }
         else {
-            $sql .= ' * ';
+            $sql .= '*';
         }
 
         $sql .= ' FROM '.strtolower(get_class($this)).' ';
@@ -67,8 +68,10 @@ class Model {
 
         $pre = $this->instance->prepare($sql);
         $pre->execute();
-        return $pre->fetchAll(PDO::FETCH_OBJ);
         
+        $this->SQL = $sql;
+
+        return $pre->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function delect($req) {
@@ -97,6 +100,8 @@ class Model {
         }
         $pre = $this->instance->prepare($sql);
         $pre->execute();
+
+        $this->SQL = $sql;
             
     }
 
@@ -117,6 +122,8 @@ class Model {
 
             $pre = $this->instance->prepare($sql);
             $pre->execute($d);
+    
+            $this->SQL = $sql;
         }
     }
 };

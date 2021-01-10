@@ -16,3 +16,17 @@ function debug($expr) {
         echo '</pre>';
     }
 }
+
+function tableur_cmd($k, $ch, $int = 40) {
+    $char = strlen($k);
+    $blank = $int;
+
+    $space = $blank - $char;
+
+    $spaces = "";
+
+    for($i = $space; $i > 0; $i--) {
+        $spaces .= " ";
+    }
+    return $spaces .= "$ch ";
+}
