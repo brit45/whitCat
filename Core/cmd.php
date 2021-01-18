@@ -171,19 +171,11 @@ if($argv[1] == "list" && $argv[2] == "config") {
 if($argv[1] == "list" && $argv[2] == "router") {
     echo "\nROUTER URL\n\n";
     foreach(Router::$url as $k=>$v) {
-        $spaces = tableur_cmd($k, "#", 15);
-        echo "  $k ".$spaces." $v\n";
-    }
-    echo "\n---------------\n\nROUTER Conf\n\n";
-    Router::path();
-    foreach(Router::$Route as $k=>$v) {
-        $spaces = tableur_cmd($k, "|", 15);
-        if(!is_array($v)) {
-            echo "  $k ".$spaces." $v\n";
+        echo "$k :\n";
+        foreach($v as $ke=>$va) {
+            $spaces = tableur_cmd($ke, "#", 15);
+            echo "  $ke ".$spaces." $va\n";
         }
-        else {
-            $s = implode(", ",$v);
-            echo "  $k ".$spaces." ".$s."\n\n";
-        }
+        echo "\n";
     }
 }

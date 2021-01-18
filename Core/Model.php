@@ -2,8 +2,15 @@
 
 class Model {
     
-    public \PDO $instance;
+    public $instance;
     public string $SQL;
+
+    private function log($sql) {
+        $log = file_get_contents(DATA.'log_sql_request.pdo');
+        $log += "\n{time()}    $sql";
+
+        file_put_contents(DATA.'log_sql_request.pdo',$log);
+    }
     
     public function __construct() {
         
@@ -71,6 +78,8 @@ class Model {
         
         $this->SQL = $sql;
 
+        $this->log($sql);
+
         return $pre->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -101,6 +110,9 @@ class Model {
         $pre = $this->instance->prepare($sql);
         $pre->execute();
 
+        $this->log($sql);
+
+
         $this->SQL = $sql;
             
     }
@@ -122,6 +134,8 @@ class Model {
 
             $pre = $this->instance->prepare($sql);
             $pre->execute($d);
+
+            $this->log($sql);
     
             $this->SQL = $sql;
         }

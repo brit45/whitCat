@@ -38,7 +38,8 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="<?= Router::RPatch('home') ?>">Home</a>
+        <a class="navbar-brand" href="<?= Router::RPatch('h-1') ?>">Home</a>
+        <a class="navbar-brand" href="<?= Router::RPatch('h-2') ?>">?</a>
     </nav>
     <div class="container-fluid">
         <?= $content_to_htm ?>
