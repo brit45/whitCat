@@ -6,13 +6,26 @@ class Router {
     public static $url = [];
 
     public static function path() {
-        $r['orig'] = !empty($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:"index/home/params1/params2";
 
-        $r['orig'] = trim($r['orig'],'/');
+        $link = $_SERVER['REQUEST_URI'];
+
+        $link = trim($link,'/');
+        $link = explode('/', $link);
+        
+        foreach(self::$url as $k=>$v) {
+            if($v['orig'] == $link[0]) {
+                $r['orig'] = $v['link'].implode('/',array_slice($link,1));
+                break;
+            }
+            else {
+                $r['orig'] = implode('/',$link);
+            }
+        }
+
         $r['match'] = explode('/', $r['orig']);
         
-        $r['controllers'] = !empty($r['match'][0])?$r['match'][0]:'index';
-        $r['action'] = !empty($r['match'][1])?$r['match'][1]:'home';
+        $r['controllers'] = $r['match'][0];
+        $r['action'] = $r['match'][1];
         $r['params'] = array_slice($r['match'],2);
 
         unset($r['orig'], $r['match']);
@@ -20,19 +33,25 @@ class Router {
         return self::$Route = $r;
     }
 
-    public static function Route($name,$ressource) {
-        self::$url[$name] = $ressource;
+    /**
+     * @param string $name constante dans les pages
+     * @param string $orig rendue des lien au propre
+     * @param string $link lien réel vers les pages.
+     */
+    public static function Route($name,$orig,$link): array {
+        return self::$url[] = [
+            'name' => $name,
+            'orig' => $orig,
+            'link' => $link
+        ];
     }
 
-    public static function RPatch($patch) {
-
-        if(isset(self::$url[$patch]) && !empty(self::$url[$patch])) {
-            return self::$url[$patch];
+    public static function RPatch($orig) {
+        foreach(self::$url as $k=>$v) {
+            if($v['name'] == $orig) {
+                return $v['orig'];
+            }
         }
-        else {
-            return $patch;
-        }
-        
     }
 
 };

@@ -1,6 +1,17 @@
 <?php
 
-$Configuration = [
+include_once "routes.php";
+
+class Config {
+
+    static public $conf;
+    
+    static function loadConf($conf) {
+        self::$conf = $conf;
+    }
+};
+
+Config::loadConf([
 
     "DataBase" => [
 
@@ -8,10 +19,10 @@ $Configuration = [
 
         // if Type is MySQL
         
-        "DataBase_Login"    => "",
-        "DataBase_Addr"    => "",
-        "DataBase_Pass"     => "",
-        "DataBase_Name"     => "",
+        "DataBase_Login"    => null,
+        "DataBase_Addr"     => null,
+        "DataBase_Pass"     => null,
+        "DataBase_Name"     => null,
         "DataBase_OPtion"   => [
 
             PDO::ATTR_DEFAULT_FETCH_MODE    => PDO::FETCH_OBJ,
@@ -24,7 +35,7 @@ $Configuration = [
 
         // if Type is liteSQL
 
-        "DataBase_Path"     => ""
+        "DataBase_Path"     => null
 
         // ------------------
 
@@ -32,18 +43,5 @@ $Configuration = [
 
     "Debug"             => true,
     "Layout_Default"    => "Default",
-    "Layout_Admin"      => "Admin"
-];
-
-class Config {
-
-    static public $conf;
-    
-    static function loadConf($conf) {
-        self::$conf = $conf;
-    }
-};
-
-Config::loadConf($Configuration);
-
-Router::Route('', '/');
+    "Layout_Admin"      => ""
+]);
