@@ -24,8 +24,8 @@ class Router {
 
         $r['match'] = explode('/', $r['orig']);
         
-        $r['controllers'] = !empty($r['match'][0])?$r['match'][0]:'index';
-        $r['action'] = !empty($r['match'][1])?$r['match'][1]:'home';
+        $r['controllers'] = $r['match'][0];
+        $r['action'] = $r['match'][1];
         $r['params'] = array_slice($r['match'],2);
 
         unset($r['orig'], $r['match']);
@@ -34,8 +34,8 @@ class Router {
     }
 
     /**
-     * @param string $orig rendue des lien au propre
      * @param string $name constante dans les pages
+     * @param string $orig rendue des lien au propre
      * @param string $link lien réel vers les pages.
      */
     public static function Route($name,$orig,$link): array {

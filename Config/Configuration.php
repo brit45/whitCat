@@ -1,5 +1,7 @@
 <?php
 
+include_once "routes.php";
+
 class Config {
 
     static public $conf;
@@ -18,7 +20,7 @@ Config::loadConf([
         // if Type is MySQL
         
         "DataBase_Login"    => null,
-        "DataBase_Addr"    => null,
+        "DataBase_Addr"     => null,
         "DataBase_Pass"     => null,
         "DataBase_Name"     => null,
         "DataBase_OPtion"   => [
@@ -39,11 +41,7 @@ Config::loadConf([
 
     ],
 
-    "Debug"             => false,
+    "Debug"             => true,
     "Layout_Default"    => "Default",
     "Layout_Admin"      => ""
 ]);
-
-Router::Route('h-1','/', 'index/home'); # ROOT
-Router::Route('h-2','https://github.com/brit45/whitCat/wiki', ''); # DOCS
-
