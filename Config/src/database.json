@@ -1,0 +1,13 @@
+{
+    "DatatBase_Type": "mysql",
+    "DatatBase_Path": null,
+    "DataBase_Login": "root",
+    "DataBase_Addr": "localhost",
+    "DataBase_Pass": "toor",
+    "DataBase_Name": "",
+    "DataBase_Option": {
+        "PDO::ATTR_DEFAULT_FETCH_MODE": "PDO::FETCH_OBJ",
+        "PDO::ATTR_ERRMODE": "PDO::ERRMODE_SILENT",
+        "PDO::PARAM_STR_CHAR": "utf-8"
+    }
+}

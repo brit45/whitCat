@@ -1,0 +1,10 @@
+{
+	
+	"Layout_Default": "Default",
+	"Layout_Admin": "Admin",
+	"Debug": true,
+	"Dev": false,
+	"DatatBase": "@src/database",
+	"script" : "@src/script",
+	"security" : "@src/security/private"
+}
