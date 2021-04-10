@@ -4,7 +4,7 @@
 	"Layout_Admin": "Admin",
 	"Debug": true,
 	"Dev": false,
-	"DatatBase": "@src/database",
+	"DataBase": "@src/database",
 	"script" : "@src/script",
 	"security" : "@src/security/private"
 }

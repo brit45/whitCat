@@ -10,14 +10,25 @@ class Dispatcher {
     public $title;
     public $script;
 
+    public $layout;
+
     public function __construct() {
-        
-        new Sessions();
         Router::path();
+        
+        if(Router::$prefix === "ad_") {
+            $this->layout = Config::$conf['Layout_Admin'];
+        }
+        else {
+            $this->layout = Config::$conf['Layout_Default'];
+        }
+
+        
         $route = Router::$Route;
         foreach($route as $k=>$v) {
             $this->route->$k = $v;
         }
+
+        
         
         $Controllers = ucfirst($this->route->controllers).'_Controllers';
         $action = $this->route->action;
@@ -51,15 +62,29 @@ class Dispatcher {
         $content_to_htm = ob_get_clean();
         
 
-        require LAYOUT.'View/'.Config::$conf['Layout_Default'].'.php';
+        require LAYOUT.'View/'.$this->layout.'.php';
 
         $this->rendered = true;
     }
 
+    /**
+     * ## Configure le titre de la page HTML
+     * 
+     * @param string $title titre de la page
+     * @return <title>...</title>
+     */
     public function set_Title($title) {
         $this->title = $title;
     }
 
+    /**
+     * ## Configure les scripts dans la pages HTML
+     * 
+     * @param string $type header du script
+     * @param string $script nom du script à chargé
+     * @param string $action action d'execution du script (defaut: defer)
+     * @return array
+     */
     public function set_Script($type,$script,$action = "defer") {
         $this->script[] = [
             "type" => $type,
@@ -71,9 +96,25 @@ class Dispatcher {
     public function Generate_Head() {
         echo "<title>{$this->title}</title>\n";
 
+        if(Config::$conf['Dev'] == true) {
+            echo "    <!--- SCRIPT  --->\n";
+            foreach(Config::$conf['script'] as $k) {
+                foreach($k['dev'] as $key=>$val) {
+                    echo "    $val\n";
+                }
+            }
+        }
+        else {
+            foreach(Config::$conf['script'] as $k) {
+                foreach($k['prod'] as $key=>$val) {
+                    echo "    $val\n";
+                }
+            }
+        }
+
         foreach($this->script as $k=>$v) {
             $s = '../Js/'.$v['script'];
-            echo "\n<script type='{$v['type']}' src=\"".$s."\" {$v['action']}></script>\n";
+            echo "  <script type='{$v['type']}' src=\"".$s."\" {$v['action']}></script>\n";
         }
     }
 

@@ -4,17 +4,14 @@ class Model {
     
     public $instance;
     public string $SQL;
+    public string $table;
 
-    private function log($sql) {
-        $log = file_get_contents(DATA.'log_sql_request.pdo');
-        $log += "\n{time()}    $sql";
-
-        file_put_contents(DATA.'log_sql_request.pdo',$log);
-    }
     
     public function __construct() {
         
         if(!empty($this->instance)) {return true;}
+
+        $this->table = get_class($this);
 
         require_once CONFIG.'Configuration.php';
         $info = Config::$conf['DataBase'];
@@ -43,7 +40,7 @@ class Model {
             $sql .= '*';
         }
 
-        $sql .= ' FROM '.strtolower(get_class($this)).' ';
+        $sql .= ' FROM '.strtolower($this->table).' ';
 
         if(isset($req['condition'])) {
             $sql .= 'WHERE ';
@@ -78,15 +75,13 @@ class Model {
         
         $this->SQL = $sql;
 
-        $this->log($sql);
-
         return $pre->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function delect($req) {
         $sql = "DELETE ";
         
-        $sql .= ' FROM '.strtolower(get_class($this)).' ';
+        $sql .= ' FROM '.strtolower($this->table).' ';
 
         if(isset($req['condition'])) {
             $sql .= 'WHERE ';
@@ -110,16 +105,13 @@ class Model {
         $pre = $this->instance->prepare($sql);
         $pre->execute();
 
-        $this->log($sql);
-
-
         $this->SQL = $sql;
             
     }
 
     public function Insert($req) {
         $sql = "INSERT INTO ";
-        $sql .= strtolower(get_class($this)).' ';
+        $sql .= strtolower($this->table).' ';
 
         if(isset($req['condition'])) {
             $sql .= 'SET ';
@@ -135,8 +127,6 @@ class Model {
             $pre = $this->instance->prepare($sql);
             $pre->execute($d);
 
-            $this->log($sql);
-    
             $this->SQL = $sql;
         }
     }
